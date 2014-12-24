@@ -28,3 +28,12 @@ v0.1.2
     - Added 'highline' gem to simplify user input, improves clarity.
   Limitations
     - Interactive prompts are inconvenient for invocation from scripts.
+
+v0.2.0
+======
+  New
+    - Non-interactive configuration with commandline arguments.
+    - Falls back to interactive prompt if missing arguments.
+  Limitations
+    - Positional arguments are non-intuitive.
+    - Cannot specify ONLY sides without dice.
