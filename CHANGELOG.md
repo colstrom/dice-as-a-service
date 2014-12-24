@@ -21,3 +21,10 @@ v0.1.1
     - Interactive prompt for sides per die.
   Limitations
     - Interactive prompts are inconvenient for invocation from scripts.
+
+v0.1.2
+------
+  New
+    - Added 'highline' gem to simplify user input, improves clarity.
+  Limitations
+    - Interactive prompts are inconvenient for invocation from scripts.
