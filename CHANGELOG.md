@@ -14,3 +14,10 @@ v0.1.0
   Notes
     - gets returns a string, but we need a number. to_i does this, and resolves:
       `undefined method `times' for "2\n":String (NoMethodError)`
+
+v0.1.1
+------
+  New
+    - Interactive prompt for sides per die.
+  Limitations
+    - Interactive prompts are inconvenient for invocation from scripts.

@@ -7,4 +7,7 @@ end
 puts 'How many dice would you like to roll?'
 dice = gets.to_i
 
-puts roll dice: dice
+puts 'How many sides per die?'
+sides = gets.to_i
+
+puts roll dice: dice, sides: sides
