@@ -11,6 +11,11 @@ if ARGV[0] == '-h'
   exit
 end
 
+if ARGV[0] == '-v'
+  puts 'roll v0.2.2'
+  exit
+end
+
 dice = ARGV[0] || ask('How many dice would you like to roll?', Integer)
 sides = ARGV[1] || ask('How many sides per die?', Integer)
 

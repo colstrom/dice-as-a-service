@@ -45,3 +45,10 @@ v0.2.1
   Limitations
     - Same as previous version.
     - Documentation is compensating for non-intuitive interface.
+
+v0.2.2
+------
+  New
+    - Added '-v' option to display version.
+  Limitations
+    - Same as previous version.
