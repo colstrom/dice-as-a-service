@@ -37,3 +37,11 @@ v0.2.0
   Limitations
     - Positional arguments are non-intuitive.
     - Cannot specify ONLY sides without dice.
+
+v0.2.1
+------
+  New
+    - Added '-h' option for runtime help.
+  Limitations
+    - Same as previous version.
+    - Documentation is compensating for non-intuitive interface.
