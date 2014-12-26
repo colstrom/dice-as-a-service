@@ -1,22 +1,22 @@
 #!/usr/bin/env ruby
 
-require 'highline/import'
+require 'commander/import'
 
 def roll(dice: 1, sides: 6)
   dice.times.map { rand 1..sides }
 end
 
-if ARGV[0] == '-h'
-  puts 'Syntax: roll.rb <dice> <sides>'
-  exit
+program :name, 'roll'
+program :version, '0.2.3'
+program :description, 'It rolls dice.'
+
+default_command :roll
+
+command :roll do |command|
+  command.syntax = 'roll <dice> <sides>'
+
+  dice = ARGV[0] || ask('How many dice would you like to roll?', Integer)
+  sides = ARGV[1] || ask('How many sides per die?', Integer)
+
+  puts roll dice: dice.to_i, sides: sides.to_i
 end
-
-if ARGV[0] == '-v'
-  puts 'roll v0.2.2'
-  exit
-end
-
-dice = ARGV[0] || ask('How many dice would you like to roll?', Integer)
-sides = ARGV[1] || ask('How many sides per die?', Integer)
-
-puts roll dice: dice.to_i, sides: sides.to_i

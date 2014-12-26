@@ -52,3 +52,10 @@ v0.2.2
     - Added '-v' option to display version.
   Limitations
     - Same as previous version.
+
+v0.2.3
+------
+  New
+    - Added 'commander' gem to simplify arguments and generate documentation.
+  Limitations
+    - Same as previous version.
