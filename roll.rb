@@ -7,16 +7,20 @@ def roll(dice: 1, sides: 6)
 end
 
 program :name, 'roll'
-program :version, '0.2.3'
+program :version, '0.2.4'
 program :description, 'It rolls dice.'
 
 default_command :roll
 
 command :roll do |command|
   command.syntax = 'roll <dice> <sides>'
+  command.option '--dice N', Integer
+  command.option '--sides N', Integer
+  
+  command.action do |_arguments, options|
+    options.dice ||= ask('How many dice would you like to roll?', Integer)
+    options.sides ||= ask('How many sides per die?', Integer)
 
-  dice = ARGV[0] || ask('How many dice would you like to roll?', Integer)
-  sides = ARGV[1] || ask('How many sides per die?', Integer)
-
-  puts roll dice: dice.to_i, sides: sides.to_i
+    puts roll dice: options.dice, sides: options.sides
+  end
 end

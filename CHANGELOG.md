@@ -59,3 +59,9 @@ v0.2.3
     - Added 'commander' gem to simplify arguments and generate documentation.
   Limitations
     - Same as previous version.
+
+v0.2.4
+------
+  New
+    - Named arguments with commander.
+    - Improved runtime help.
