@@ -77,3 +77,11 @@ v0.3.0
     - Added an option to provide dice-rolling as a service.
   Limitatons
     - Nothing written to access the service!
+
+v0.3.1
+------
+  New
+    - Added client to access the service.
+  Limitations
+    - Server makes all the decisions! We'd need to run multiple services for 
+      different dice/sides combinations.
