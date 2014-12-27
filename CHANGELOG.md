@@ -70,3 +70,10 @@ v0.2.5
 ------
   New
     - Revised to not import commander into the global namespace.
+
+v0.3.0
+======
+  New
+    - Added an option to provide dice-rolling as a service.
+  Limitatons
+    - Nothing written to access the service!

@@ -12,6 +12,7 @@ Expected Functionality
 Roll a number of dice with a number of sides.
 Allow a user to set dice or sides interactively or with arguments.
 Includes runtime documentation.
+Provides the dice-rolling as a network-accessible service.
 
 Requirements
 ------------
