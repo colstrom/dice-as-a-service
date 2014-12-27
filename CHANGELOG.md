@@ -65,3 +65,8 @@ v0.2.4
   New
     - Named arguments with commander.
     - Improved runtime help.
+
+v0.2.5
+------
+  New
+    - Revised to not import commander into the global namespace.
