@@ -20,3 +20,22 @@ Requirements
 A working installation of Ruby, version 2.0 or higher.
 
 Basic knowledge of Ruby is assumed, but not required. The example is deliberately simple, and each iteration should introduce a single new concept.
+
+Operating System Notes
+----------------------
+
+As this relies on [ffi-rzmq](https://github.com/chuckremes/ffi-rzmq), you will need to have the zeromq libraries available.
+
+For OSX, [Homebrew](http://brew.sh/) is probably the easiest way to handle this:
+
+```brew install zeromq```
+
+For Ubuntu, [Chris Lea's PPA](https://launchpad.net/~chris-lea/+archive/ubuntu/zeromq) is a good choice:
+
+```
+sudo add-apt-repository ppa:chris-lea/zeromq
+sudo aptitude update
+sudo aptitude install libzmq3-dev
+```
+
+For Windows, you should really consult the [ØMQ documentation](http://zeromq.org/docs:windows-installations).

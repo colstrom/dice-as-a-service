@@ -16,13 +16,20 @@ def server(protocol: 'tcp', address: '*', port: 5555, provides: -> {})
   loop do
     request = ''
     server.recv_string request
-    server.send_string provides.call.to_s
+
+    response = provides.call(request).to_s
+    server.send_string response
+    puts "#{ request } #{ response }"
   end
+end
+
+def deserialize(request)
+  request.split(/d/).map(&:to_i)
 end
 
 Commander.configure do
   program :name, 'roll'
-  program :version, '0.3.1'
+  program :version, '0.3.2'
   program :description, 'It rolls dice.'
 
   default_command :roll
@@ -31,18 +38,22 @@ Commander.configure do
     command.syntax = 'roll <dice> <sides>'
     command.option '--dice N', Integer
     command.option '--sides N', Integer
-    command.option '--service'
 
     command.action do |_arguments, options|
       options.dice ||= ask('How many dice would you like to roll?', Integer)
       options.sides ||= ask('How many sides per die?', Integer)
 
-      if options.service
-        service = -> { roll(dice: options.dice, sides: options.sides) }
-        server provides: service
-      else
-        puts roll dice: options.dice, sides: options.sides
+      puts roll dice: options.dice, sides: options.sides
+    end
+  end
+
+  command :service do |command|
+    command.action do
+      service = lambda do |request|
+        dice, sides = deserialize request
+        roll(dice: dice, sides: sides)
       end
+      server provides: service
     end
   end
 end

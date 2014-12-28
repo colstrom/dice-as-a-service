@@ -85,3 +85,12 @@ v0.3.1
   Limitations
     - Server makes all the decisions! We'd need to run multiple services for 
       different dice/sides combinations.
+
+v0.3.2
+------
+  New
+    - Changed service mode from options to command, as logic diverged from roll.
+    - Added primitive serialize/deserialize methods.
+    - Pass request string into 'provides' lambda.
+  Limitations
+    - Client can only connect to local service.
