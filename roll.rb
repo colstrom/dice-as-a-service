@@ -21,7 +21,11 @@ def server(protocol: 'tcp', address: '*', port: 5555, provides: -> {})
     server.recv_string request
     request = JSON.parse request
 
-    response = JSON.generate provides.call(request)
+    payload = {
+      request: request,
+      response: provides.call(request)
+    }
+    response = JSON.generate payload
     server.send_string response
 
     publisher.send_string "#{ request['topic'] } #{ response }"  unless request['topic'] == 'private'
@@ -32,7 +36,7 @@ end
 
 Commander.configure do
   program :name, 'roll'
-  program :version, '0.5.1'
+  program :version, '0.6.0'
   program :description, 'It rolls dice.'
 
   default_command :roll

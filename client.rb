@@ -37,7 +37,7 @@ end
 
 Commander.configure do
   program :name, 'roll-client'
-  program :version, '0.5.1'
+  program :version, '0.6.0'
   program :description, 'It rolls dice, somewhere else.'
 
   default_command :roll
@@ -57,7 +57,7 @@ Commander.configure do
       puts "Request sent for #{ request }"
 
       response = remote_roll request: request
-      puts "Received response of #{ response }"
+      puts "Received response of #{ response['response'] }"
     end
   end
 end

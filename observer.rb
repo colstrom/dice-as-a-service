@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'ffi-rzmq'
+require 'json'
 
 def subscribe(topic: '')
   context = ZMQ::Context.new
@@ -13,6 +14,7 @@ def subscribe(topic: '')
   loop do
     response = ''
     subscriber.recv_string response
+    _topic, response = response.split(/^\w+\s/)
     puts response
   end
 end

@@ -138,3 +138,8 @@ v0.5.1
     - Replaced custom (de)serialization with JSON.
   Limitations
     - Published responses have no context.
+
+v0.6.0
+======
+  New
+    - Included request in response payload.
