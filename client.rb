@@ -20,7 +20,7 @@ end
 
 Commander.configure do
   program :name, 'roll-client'
-  program :version, '0.4.0'
+  program :version, '0.4.1'
   program :description, 'It rolls dice, somewhere else.'
 
   default_command :roll

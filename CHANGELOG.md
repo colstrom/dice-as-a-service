@@ -101,3 +101,10 @@ v0.4.0
     - Basic pub/sub support. Just publishing rolls for now!
   Limitations
     - Nothing consuming the published data.
+
+v0.4.1
+------
+  New
+    - Consuming published data with subscriber.
+  Limitations
+    - Everything is published on one channel, and subscribed to indiscriminately.
