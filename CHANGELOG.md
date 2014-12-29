@@ -122,3 +122,12 @@ v0.4.3
 ------
   New
     - Added 'private' topic that will not broadcast (enforced server-side).
+
+v0.5.0
+======
+  New
+    - Added methods to Commander::Command::Options to convert to string, array, hash.
+    - Serialization method does not need updating for every new option.
+    - Deserialization updated to expect this data.
+  Limitations
+    - Eval allows remote code execution.

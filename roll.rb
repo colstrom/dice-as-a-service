@@ -22,21 +22,19 @@ def server(protocol: 'tcp', address: '*', port: 5555, provides: -> {})
     response = provides.call(request).to_s
     server.send_string response
 
-    topic = deserialize(request).first
-    publisher.send_string "#{ topic } #{ response }"  unless topic == 'private'
+    publisher.send_string "#{ request['topic'] } #{ response }"  unless request['topic'] == 'private'
 
     puts "#{ request } #{ response }"
   end
 end
 
 def deserialize(request)
-  request = request.split(/,/)
-  [request.shift, request.map(&:to_i)].flatten
+  eval request
 end
 
 Commander.configure do
   program :name, 'roll'
-  program :version, '0.4.3'
+  program :version, '0.5.0'
   program :description, 'It rolls dice.'
 
   default_command :roll
@@ -57,8 +55,8 @@ Commander.configure do
   command :service do |command|
     command.action do
       service = lambda do |request|
-        _topic, dice, sides = deserialize request
-        roll(dice: dice, sides: sides)
+        request = deserialize request
+        roll(dice: request['dice'].to_i, sides: request['sides'].to_i)
       end
       server provides: service
     end

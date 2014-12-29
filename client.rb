@@ -3,6 +3,25 @@
 require 'commander'
 require 'ffi-rzmq'
 
+module Commander
+  class Command
+    # Adding a few methods to coerce Options into more usable types.
+    class Options
+      def to_a
+        inspect.tap { |s| s.slice! 'Commander::Command::Options' }.split(/\W/).reject!(&:empty?)
+      end
+
+      def to_h
+        Hash[*to_a]
+      end
+
+      def to_s
+        to_h.to_s
+      end
+    end
+  end
+end
+
 def remote_roll(request: '')
   context = ZMQ::Context.new
   client = context.socket ZMQ::REQ
@@ -14,13 +33,13 @@ def remote_roll(request: '')
   response
 end
 
-def serialize(**options)
-  "#{ options[:topic] },#{ options[:dice] },#{ options[:sides] }"
+def serialize(options)
+  options.to_s
 end
 
 Commander.configure do
   program :name, 'roll-client'
-  program :version, '0.4.3'
+  program :version, '0.5.0'
   program :description, 'It rolls dice, somewhere else.'
 
   default_command :roll
@@ -36,7 +55,7 @@ Commander.configure do
       options.sides ||= ask('How many sides per die?', Integer)
       options.default topic: 'default'
 
-      request = serialize dice: options.dice, sides: options.sides, topic: options.topic
+      request = serialize options
       puts "Request sent for #{ request }"
 
       response = remote_roll request: request
