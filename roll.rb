@@ -11,6 +11,8 @@ def server(protocol: 'tcp', address: '*', port: 5555, provides: -> {})
   context = ZMQ::Context.new
   server = context.socket ZMQ::REP
   server.bind "#{ protocol }://#{ address }:#{ port }"
+  publisher = context.socket ZMQ::PUB
+  publisher.bind "#{ protocol }://#{ address }:#{ port + 1 }"
 
   puts "Dice Service listening on #{ protocol } #{ port }"
   loop do
@@ -19,6 +21,7 @@ def server(protocol: 'tcp', address: '*', port: 5555, provides: -> {})
 
     response = provides.call(request).to_s
     server.send_string response
+    publisher.send_string "roll #{ response }"
     puts "#{ request } #{ response }"
   end
 end
@@ -29,7 +32,7 @@ end
 
 Commander.configure do
   program :name, 'roll'
-  program :version, '0.3.2'
+  program :version, '0.4.0'
   program :description, 'It rolls dice.'
 
   default_command :roll

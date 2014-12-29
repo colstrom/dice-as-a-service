@@ -94,3 +94,10 @@ v0.3.2
     - Pass request string into 'provides' lambda.
   Limitations
     - Client can only connect to local service.
+
+v0.4.0
+======
+  New
+    - Basic pub/sub support. Just publishing rolls for now!
+  Limitations
+    - Nothing consuming the published data.
