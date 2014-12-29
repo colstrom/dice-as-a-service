@@ -108,3 +108,12 @@ v0.4.1
     - Consuming published data with subscriber.
   Limitations
     - Everything is published on one channel, and subscribed to indiscriminately.
+
+v0.4.2
+------
+  New
+    - Client can now specify topic for request.
+    - (De)serialization methods updated to account for additional parameter.
+    - Server will publish with requested topic.
+  Limitations
+    - Can publish on different channels, but the observer sees all.

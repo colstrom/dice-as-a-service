@@ -21,18 +21,22 @@ def server(protocol: 'tcp', address: '*', port: 5555, provides: -> {})
 
     response = provides.call(request).to_s
     server.send_string response
-    publisher.send_string "roll #{ response }"
+
+    topic = deserialize(request).first
+    publisher.send_string "#{ topic } #{ response }"
+
     puts "#{ request } #{ response }"
   end
 end
 
 def deserialize(request)
-  request.split(/d/).map(&:to_i)
+  request = request.split(/,/)
+  [request.shift, request.map(&:to_i)].flatten
 end
 
 Commander.configure do
   program :name, 'roll'
-  program :version, '0.4.1'
+  program :version, '0.4.2'
   program :description, 'It rolls dice.'
 
   default_command :roll
@@ -53,7 +57,7 @@ Commander.configure do
   command :service do |command|
     command.action do
       service = lambda do |request|
-        dice, sides = deserialize request
+        _topic, dice, sides = deserialize request
         roll(dice: dice, sides: sides)
       end
       server provides: service
