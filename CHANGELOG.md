@@ -117,3 +117,8 @@ v0.4.2
     - Server will publish with requested topic.
   Limitations
     - Can publish on different channels, but the observer sees all.
+
+v0.4.3
+------
+  New
+    - Added 'private' topic that will not broadcast (enforced server-side).

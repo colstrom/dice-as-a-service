@@ -23,7 +23,7 @@ def server(protocol: 'tcp', address: '*', port: 5555, provides: -> {})
     server.send_string response
 
     topic = deserialize(request).first
-    publisher.send_string "#{ topic } #{ response }"
+    publisher.send_string "#{ topic } #{ response }"  unless topic == 'private'
 
     puts "#{ request } #{ response }"
   end
@@ -36,7 +36,7 @@ end
 
 Commander.configure do
   program :name, 'roll'
-  program :version, '0.4.2'
+  program :version, '0.4.3'
   program :description, 'It rolls dice.'
 
   default_command :roll

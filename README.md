@@ -15,6 +15,7 @@ Includes runtime documentation.
 Provides the dice-rolling as a network-accessible service.
 Broadcasts the rolls to allow auditing.
 Can specify an (optional) topic/channel for the rolls to broadcast on.
+Rolls can be private.
 
 Requirements
 ------------
