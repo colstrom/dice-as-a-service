@@ -143,3 +143,9 @@ v0.6.0
 ======
   New
     - Included request in response payload.
+
+v0.6.1
+------
+  New
+    - Added stats observer. Tracks statistics from roll history.
+    - Added gem 'descriptive_statistics' to handle stats calculation.

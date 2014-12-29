@@ -36,7 +36,7 @@ end
 
 Commander.configure do
   program :name, 'roll'
-  program :version, '0.6.0'
+  program :version, '0.6.1'
   program :description, 'It rolls dice.'
 
   default_command :roll

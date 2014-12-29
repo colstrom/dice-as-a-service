@@ -17,6 +17,7 @@ Broadcasts the rolls to allow auditing.
 Can specify an (optional) topic/channel for the rolls to broadcast on.
 Rolls can be private.
 Data is represented in an interoperable format.
+Stats service that tracks historic rolls.
 
 Requirements
 ------------
