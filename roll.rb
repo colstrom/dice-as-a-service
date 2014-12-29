@@ -2,6 +2,7 @@
 
 require 'commander'
 require 'ffi-rzmq'
+require 'json'
 
 def roll(dice: 1, sides: 6)
   dice.times.map { rand 1..sides }
@@ -18,8 +19,9 @@ def server(protocol: 'tcp', address: '*', port: 5555, provides: -> {})
   loop do
     request = ''
     server.recv_string request
+    request = JSON.parse request
 
-    response = provides.call(request).to_s
+    response = JSON.generate provides.call(request)
     server.send_string response
 
     publisher.send_string "#{ request['topic'] } #{ response }"  unless request['topic'] == 'private'
@@ -28,13 +30,9 @@ def server(protocol: 'tcp', address: '*', port: 5555, provides: -> {})
   end
 end
 
-def deserialize(request)
-  eval request
-end
-
 Commander.configure do
   program :name, 'roll'
-  program :version, '0.5.0'
+  program :version, '0.5.1'
   program :description, 'It rolls dice.'
 
   default_command :roll
@@ -54,10 +52,7 @@ Commander.configure do
 
   command :service do |command|
     command.action do
-      service = lambda do |request|
-        request = deserialize request
-        roll(dice: request['dice'].to_i, sides: request['sides'].to_i)
-      end
+      service = -> request { roll(dice: request['dice'].to_i, sides: request['sides'].to_i) }
       server provides: service
     end
   end

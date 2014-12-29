@@ -2,6 +2,7 @@
 
 require 'commander'
 require 'ffi-rzmq'
+require 'json'
 
 module Commander
   class Command
@@ -27,19 +28,16 @@ def remote_roll(request: '')
   client = context.socket ZMQ::REQ
   client.connect 'tcp://localhost:5555'
 
-  client.send_string request
+  client.send_string JSON.generate request
   response = ''
-  client.recv_string response
-  response
-end
 
-def serialize(options)
-  options.to_s
+  client.recv_string response
+  JSON.parse response
 end
 
 Commander.configure do
   program :name, 'roll-client'
-  program :version, '0.5.0'
+  program :version, '0.5.1'
   program :description, 'It rolls dice, somewhere else.'
 
   default_command :roll
@@ -55,7 +53,7 @@ Commander.configure do
       options.sides ||= ask('How many sides per die?', Integer)
       options.default topic: 'default'
 
-      request = serialize options
+      request = options.to_h
       puts "Request sent for #{ request }"
 
       response = remote_roll request: request

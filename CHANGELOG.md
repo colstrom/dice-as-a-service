@@ -131,3 +131,10 @@ v0.5.0
     - Deserialization updated to expect this data.
   Limitations
     - Eval allows remote code execution.
+
+v0.5.1
+------
+  New
+    - Replaced custom (de)serialization with JSON.
+  Limitations
+    - Published responses have no context.
