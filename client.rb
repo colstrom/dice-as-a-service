@@ -26,7 +26,7 @@ end
 def remote_roll(request: '')
   context = ZMQ::Context.new
   client = context.socket ZMQ::REQ
-  client.connect 'tcp://localhost:5555'
+  client.connect "tcp://localhost:#{ request['port'] }"
 
   client.send_string JSON.generate request
   response = ''
@@ -37,7 +37,7 @@ end
 
 Commander.configure do
   program :name, 'roll-client'
-  program :version, '0.6.1'
+  program :version, '0.7.0'
   program :description, 'It rolls dice, somewhere else.'
 
   default_command :roll
@@ -47,11 +47,12 @@ Commander.configure do
     command.option '--dice N', Integer
     command.option '--sides N', Integer
     command.option '--topic STRING', String
+    command.option '--port N', Integer
 
     command.action do |_arguments, options|
       options.dice ||= ask('How many dice would you like to roll?', Integer)
       options.sides ||= ask('How many sides per die?', Integer)
-      options.default topic: 'default'
+      options.default topic: 'default', port: 5555
 
       request = options.to_h
       puts "Request sent for #{ request }"

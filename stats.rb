@@ -4,6 +4,30 @@ require 'ffi-rzmq'
 require 'json'
 require 'descriptive_statistics'
 
+def server
+  context = ZMQ::Context.new
+  server = context.socket ZMQ::REP
+  server.bind 'tcp://*:5554'
+
+  loop do
+    request = ''
+    server.recv_string request
+    request = JSON.parse request
+
+    roll = "#{ request['dice'] }d#{ request['sides'] }"
+
+    $history[roll] = [] unless $history.include? roll
+
+    payload = {
+      request: request,
+      response: $history[roll].descriptive_statistics
+    }
+    response = JSON.generate payload
+    server.send_string response
+    puts "#{ response }"
+  end
+end
+
 def subscribe(topic: '')
   context = ZMQ::Context.new
   subscriber = context.socket ZMQ::SUB
@@ -11,8 +35,6 @@ def subscribe(topic: '')
   subscriber.setsockopt ZMQ::SUBSCRIBE, topic
 
   puts 'Tracking roll stats...'
-
-  history = {}
 
   loop do
     response = ''
@@ -22,10 +44,13 @@ def subscribe(topic: '')
 
     roll = "#{ response['request']['dice'] }d#{ response['request']['sides'] }"
 
-    history[roll] = [] unless history.include? roll
-    history[roll] << response['response'].sum
-    puts "#{ roll } stats are #{ history[roll].descriptive_statistics }"
+    $history[roll] = [] unless $history.include? roll
+    $history[roll] << response['response'].sum
+    puts "#{ roll } stats are #{ $history[roll].descriptive_statistics }"
   end
 end
 
+$history = {}
+
 subscribe
+server

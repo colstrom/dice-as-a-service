@@ -149,3 +149,12 @@ v0.6.1
   New
     - Added stats observer. Tracks statistics from roll history.
     - Added gem 'descriptive_statistics' to handle stats calculation.
+
+v0.7.0
+======
+  New
+    - Added service to stats observer, and port option to client.
+    - Sending a request to port 5554 should call the stats service.
+  Limitations
+    - Since the loops are endless, and recv_string is blocking, server won't be 
+    called until subscribe returns...
