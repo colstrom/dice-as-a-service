@@ -52,5 +52,7 @@ end
 
 $history = {}
 
-subscribe
-server
+threads = []
+threads << Thread.new { subscribe }
+threads << Thread.new { server }
+threads.each(&:join)

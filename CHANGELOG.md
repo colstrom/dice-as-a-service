@@ -158,3 +158,11 @@ v0.7.0
   Limitations
     - Since the loops are endless, and recv_string is blocking, server won't be 
     called until subscribe returns...
+
+v0.7.1
+------
+  New
+    - Threading to the rescue! Both the subscriber and server methods can run 
+    concurrently. They share access to the global variable $history.
+  Limitations
+    - Stats only account for rolls observed over the life of the stats observer.
