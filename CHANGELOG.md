@@ -166,3 +166,8 @@ v0.7.1
     concurrently. They share access to the global variable $history.
   Limitations
     - Stats only account for rolls observed over the life of the stats observer.
+
+v0.8.0
+======
+  New
+    - Persistence! Stats are recorded on-disk, and loaded at startup.

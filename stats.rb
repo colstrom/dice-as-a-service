@@ -3,6 +3,7 @@
 require 'ffi-rzmq'
 require 'json'
 require 'descriptive_statistics'
+require 'moneta'
 
 def server
   context = ZMQ::Context.new
@@ -16,11 +17,11 @@ def server
 
     roll = "#{ request['dice'] }d#{ request['sides'] }"
 
-    $history[roll] = [] unless $history.include? roll
+    roll_history = $history.fetch roll, []
 
     payload = {
       request: request,
-      response: $history[roll].descriptive_statistics
+      response: roll_history.descriptive_statistics
     }
     response = JSON.generate payload
     server.send_string response
@@ -44,15 +45,18 @@ def subscribe(topic: '')
 
     roll = "#{ response['request']['dice'] }d#{ response['request']['sides'] }"
 
-    $history[roll] = [] unless $history.include? roll
-    $history[roll] << response['response'].sum
-    puts "#{ roll } stats are #{ $history[roll].descriptive_statistics }"
+    roll_history = $history.fetch roll, []
+    roll_history << response['response'].sum
+    puts "#{ roll } stats are #{ roll_history.descriptive_statistics }"
+    $history.store roll, roll_history
   end
 end
 
-$history = {}
+$history = Moneta.new :File, dir: '.stats'
 
 threads = []
 threads << Thread.new { subscribe }
 threads << Thread.new { server }
 threads.each(&:join)
+
+$history.close
