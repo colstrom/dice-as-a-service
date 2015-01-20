@@ -171,3 +171,8 @@ v0.8.0
 ======
   New
     - Persistence! Stats are recorded on-disk, and loaded at startup.
+
+v0.9.0
+======
+  New
+    - Added HTTP interface, connects to existing services.

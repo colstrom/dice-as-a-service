@@ -9,16 +9,17 @@ This repository demonstrates one way to build networked software in Ruby.
 Expected Functionality
 ----------------------
 
-Roll a number of dice with a number of sides.
-Allow a user to set dice or sides interactively or with arguments.
-Includes runtime documentation.
-Provides the dice-rolling as a network-accessible service.
-Broadcasts the rolls to allow auditing.
-Can specify an (optional) topic/channel for the rolls to broadcast on.
-Rolls can be private.
-Data is represented in an interoperable format.
-Stats service that tracks historic rolls.
-Persistent data storage.
+1. Roll a number of dice with a number of sides.
+2. Allow a user to set dice or sides interactively or with arguments.
+3. Includes runtime documentation.
+4. Provides the dice-rolling as a network-accessible service.
+5. Broadcasts the rolls to allow auditing.
+6. Can specify an (optional) topic/channel for the rolls to broadcast on.
+7. Rolls can be private.
+8. Data is represented in an interoperable format.
+9. Stats service that tracks historic rolls.
+10. Persistent data storage.
+11. HTTP Interface.
 
 Requirements
 ------------
